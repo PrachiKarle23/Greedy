@@ -1,0 +1,23 @@
+class Solution{
+    public:
+    long long findMinDiff(vector<long long> a, long long n, long long m){
+       sort(a.begin(),a.end());
+       long long mini=999999;
+       int i=0,j=0,cnt=1;
+       
+       for(;j<n;j++)
+       {
+           if(cnt>=m){
+             
+             int diff=a[j]-a[i];
+            
+             if(mini>diff){
+                 mini=diff;
+             }
+             i++;
+           }
+           cnt++;
+       }
+      return mini;
+    }   
+};
