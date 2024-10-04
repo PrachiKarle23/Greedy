@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool validPalindrome(string s) {
+        string p=s;
+        reverse(s.begin(),s.end());
+        int oddCnt=0;
+        unordered_map<char,int>mp;
+        if(p==s){
+            return true;
+        }
+        else{
+            for(int i=0;i<s.length();i++)
+            {
+                mp[s[i]]++;
+                if(mp[s[i]]%2!=0)
+                {
+                    oddCnt++;
+                }
+                else{
+                    oddCnt--;
+                }
+            }
+        }
+       
+        return !(oddCnt>2);
+    }
+};
