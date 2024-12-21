@@ -62,15 +62,14 @@ int main()
     }
     
     vector<int>ans;
-    int energy=k;
     while(!pq.empty())
     {
         int a=pq.top().first;
         int b=pq.top().second;
-        if(energy>0)
+        if(k>0)
         {
            ans.push_back(b);
-           energy--;
+           k--;
         }
         pq.pop();
     }
