@@ -80,3 +80,55 @@ int main()
     }
     return 0;
 }
+
+
+//recursion
+#include<iostream>
+#include<queue>
+#include<algorithm>
+using namespace std;
+
+void solve(vector<int>B ,priority_queue<pair<int,int>>& pq,vector<int>a,int k,int sum,int i)
+{
+    
+   if(i>=7 || k<0)
+   {
+       return;
+   }
+   if(k==0)
+   {
+       sort(a.begin(),a.end());
+       pq.push(make_pair(sum,a[0]));
+       return;
+   }
+    
+        //incl
+         a.push_back(i);
+         solve(B,pq,a,k-1,sum+B[i],i+1);
+         a.pop_back();
+    
+        //excl
+        solve(B,pq,a,k+1,sum,i+1);
+}
+int main()
+{
+    int A[7]={10,20,0,30,5,0,10};
+    int k=3;
+    
+    vector<int>B;
+    for(int i=0;i<7;i++)
+    {
+        if(A[i]!=0){
+            B.push_back(A[i]);
+        }
+    }
+    priority_queue<pair<int,int>>pq;
+    vector<int>a;
+    
+    solve(B,pq,a,k,0,0);
+    
+    
+    cout<<pq.top().second+1<<" day";
+  
+    return 0;
+}
