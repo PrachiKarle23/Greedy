@@ -132,3 +132,62 @@ int main()
   
     return 0;
 }
+
+
+//2d dp
+#include<iostream>
+#include<queue>
+#include<algorithm>
+#include<unordered_map>
+using namespace std;
+
+int solve(vector<int>B ,priority_queue<pair<int,int>>& pq,vector<int>a,int k,int sum,int i,vector<vector<int>>& dp)
+{
+    
+   if(i>=B.size() || k<0)
+   {
+       return 0;
+   }
+   if(k==0)
+   {
+       sort(a.begin(),a.end());
+       pq.push(make_pair(sum,a[0]));
+       return sum;
+   }
+   if(dp[i][k]!=-1){
+       return dp[i][k];
+   }
+        //incl
+    a.push_back(i);
+    int incl=solve(B,pq,a,k-1,sum+B[i],i+1,dp);
+    a.pop_back();
+    
+        //excl
+    int excl=solve(B,pq,a,k,sum,i+1,dp);
+    
+    int res=max(incl,excl);
+    dp[i][k] = res;
+    return dp[i][k];
+}
+int main()
+{
+    int A[7]={10,20,0,30,5,0,10};
+    int k=3;
+    
+    vector<int>B;
+    for(int i=0;i<7;i++)
+    {
+        if(A[i]!=0){
+            B.push_back(A[i]);
+        }
+    }
+    priority_queue<pair<int,int>>pq;
+    vector<int>a;
+    
+    vector<vector<int>> dp(B.size(),vector<int>(k+1,-1));
+    solve(B,pq,a,k,0,0,dp);
+    
+    cout<<pq.top().second+1;
+  
+    return 0;
+}
