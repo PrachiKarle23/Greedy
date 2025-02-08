@@ -1,27 +1,41 @@
 class Solution {
 public:
+    bool isPalindrome(string s)
+    {
+        int i=0,j=s.size()-1;
+        while(i<j){
+            if(s[i]!=s[j]){
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
     bool validPalindrome(string s) {
-        string p=s;
-        reverse(s.begin(),s.end());
-        int oddCnt=0;
-        unordered_map<char,int>mp;
-        if(p==s){
+        if(isPalindrome(s)){
             return true;
         }
-        else{
-            for(int i=0;i<s.length();i++)
-            {
-                mp[s[i]]++;
-                if(mp[s[i]]%2!=0)
-                {
-                    oddCnt++;
+
+        string one=s,two=s;
+        int i=0,j=s.size()-1;
+        while(i<j){
+            if(s[i]!=s[j]){
+                one.erase(one.begin()+i);
+                two.erase(two.begin()+j);
+                if(isPalindrome(one)){
+                    return true;
+                }
+                else if(isPalindrome(two)){
+                    return true;
                 }
                 else{
-                    oddCnt--;
+                    return false;
                 }
             }
+            i++;
+            j--;
         }
-       
-        return !(oddCnt>2);
+        return false;
     }
 };
