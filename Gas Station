@@ -1,0 +1,49 @@
+class Solution {
+public:
+    static bool cmp(pair<pair<int,int>,int>p1,pair<pair<int,int>,int>p2)
+    {
+        if(p1.first.first == p2.first.first){
+          return  p1.first.second>p2.first.second;
+        }
+        else if(p1.first.second==p2.first.second){
+            return p1.first.first>p2.first.first;
+        }
+        return p1.first.first<p2.first.first ;
+    }
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        vector<pair<pair<int,int>,int>>p;
+        for(int i=0;i<gas.size();i++)
+        {
+            pair<int,int>v=make_pair(cost[i],gas[i]);
+            p.push_back(make_pair(v,i));
+        }
+        sort(p.begin(),p.end(),cmp);
+
+        
+        int indAns=p[0].second;
+        int cnt=1,i=1,tank=gas[indAns],n=gas.size();
+        int ind=-1;
+
+        for(int i=0;i<n;i++)
+        {
+            cout<<p[i].first.first<<","<<p[i].first.second<<"=>"<<p[i].second<<endl;
+        }
+        while(i<n)
+        {
+            int c=p[i-1].first.first;
+            int g=p[i].first.second;
+            ind=p[i].second;
+            tank=(tank-c)+g;
+            cnt++;
+            i++;
+        }
+
+        if(tank>=cost[ind]){
+            cnt++;
+        }
+        if(cnt==n+1){
+         return indAns;
+       }
+       return -1;
+    }
+};
