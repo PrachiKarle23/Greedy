@@ -47,3 +47,23 @@ public:
        return -1;
     }
 };
+
+
+
+class Solution {
+public:
+//if not available then (totalgas-totalCost)<0 and fuel<0 index+1
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int n=gas.size(),totalDiff=0,fuel=0,ind=0;
+        for(int i=0;i<n;i++){
+           int diff=gas[i]-cost[i];
+           totalDiff+=diff;
+           fuel+=diff;
+           if(fuel<0){
+              ind=i+1;
+              fuel=0;
+           }
+        }
+        return (totalDiff<0)? -1:ind;
+    }
+};
