@@ -1,0 +1,30 @@
+  class Solution {
+public:
+    static bool cmp(int p1,int p2)
+    {
+        return p1>p2;
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        sort(coins.begin(),coins.end(),cmp);
+
+        int n=coins.size();
+        int i=0,cnt=0,sum=0;
+        while(i<n)
+        {
+           sum+=coins[i];
+           cnt++;
+           if(sum==amount){
+            return cnt;
+           }
+           if(sum>amount){
+              sum-=coins[i];
+              cnt--;
+              i++;
+           }
+        }
+        if(sum==amount){
+            return cnt;
+        }
+        return -1;
+    }
+};
