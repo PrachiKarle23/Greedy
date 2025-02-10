@@ -34,3 +34,55 @@ class Solution {
        return totalval;
     }
 };
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+static bool cmp(pair<int,pair<int,int>>& p1,pair<int,pair<int,int>>& p2)
+{
+    return p1.first>p2.first;
+}
+
+
+int fractionalKSP(int profit[],int wt[],int W)
+{
+    vector<pair<int,pair<int,int>>>p;
+    for(int i=0;i<3;i++)
+    {
+        int val=profit[i];
+        int w=wt[i];
+        int ratio= val/w;
+        
+        p.push_back(make_pair(ratio,make_pair(val,w)));
+    }
+    int totalval=0;
+    sort(p.begin(),p.end(),cmp);
+    
+  
+    for(int i=0;i<3;i++)
+       {
+           if(p[i].second.second>W)
+           {
+               totalval+=W*p[i].first;
+               W=0;
+           }
+           else{
+               totalval+=p[i].second.first;
+               W-=p[i].second.second;
+           }
+       }
+    return totalval;
+}
+int main() {
+    int W=50;
+    int profit[3]={60,100,120};
+    int wt[3]={10,20,30};
+    
+    cout<<fractionalKSP(profit,wt,W);
+    return 0;
+}
